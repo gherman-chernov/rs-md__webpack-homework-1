@@ -1,24 +1,17 @@
 import data from './data';
 import '../files/index.css';
 
-const app = document.getElementById('app');
-const body = document.getElementsByTagName('body')[0];
-const slider = document.getElementById('slider');
+const app = document.getElementById('app') as HTMLDivElement;
+const body = document.getElementsByTagName('body')[0] as HTMLBodyElement;
+const slider = document.getElementById('slider') as HTMLInputElement;
 const player = new Audio();
 
-function createAmbientButton(ambientInfo) {
-  const button = document.createElement('BUTTON');
-
-  button.title = ambientInfo.name;
-  button.image;
-}
-
-let selected;
-let selectedDiv;
+let selected: string;
+let selectedDiv: HTMLDivElement;
 
 data.forEach((_) => {
-  const div = document.createElement('DIV');
-  const img = document.createElement('IMG');
+  const div = document.createElement('DIV') as HTMLDivElement;
+  const img = document.createElement('IMG') as HTMLImageElement;
 
   img.src = _.img;
   div.appendChild(img);
@@ -35,7 +28,7 @@ data.forEach((_) => {
     
     if (selectedDiv == null || selectedDiv !== div) {
       player.src = _.sound;
-      player.volume = slider.value;
+      player.volume = +slider?.value;
       player.play();
     } else {
       
@@ -51,5 +44,5 @@ data.forEach((_) => {
 });
 
 slider.onchange = _ => {
-  player.volume = slider.value;
+  player.volume = +slider.value;
 };

@@ -2,15 +2,19 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
+const { resolve } = require("dns");
 const DistPath = path.resolve(__dirname, '../dist');
 
 module.exports = {
   context: path.resolve(__dirname, '../src'),
-  entry: './index.js',
+  entry: './index.ts',
   output: {
     filename: '[name].[contenthash].js',
     path: DistPath,
     clean: true
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -21,9 +25,6 @@ module.exports = {
         {
           from: '../files/assets',
           to: path.resolve(DistPath, 'files/assets')
-        }, {
-          from: '../files/fonts',
-          to: path.resolve(DistPath, 'files/fonts')
         }]
     }),
     new ESLintPlugin({
@@ -37,9 +38,10 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource'
-      }
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
     ]
   }
 };

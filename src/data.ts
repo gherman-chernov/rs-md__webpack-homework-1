@@ -1,3 +1,10 @@
+interface WeatherItem {
+  name: string,
+  img: string,
+  background: string,
+  sound: string
+}
+
 export default [ {
     name: "rain",
     img: "/files/assets/icons/cloud-rain.svg",
@@ -16,4 +23,4 @@ export default [ {
     background: "/files/assets/winter-bg.jpg",
     sound: "/files/assets/sounds/winter.mp3",
   },
-];
+] as WeatherItem[];
